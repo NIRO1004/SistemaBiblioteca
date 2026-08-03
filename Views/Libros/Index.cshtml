@@ -1,0 +1,76 @@
+@model IEnumerable<SistemaBiblioteca.Models.Libro>
+
+@{
+    ViewData["Title"] = "Libros";
+}
+
+<h1>Gestión de Libros</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">
+        Registrar nuevo libro
+    </a>
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Título</th>
+            <th>ISBN</th>
+            <th>Año</th>
+            <th>Cantidad Total</th>
+            <th>Disponibles</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th width="220">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Titulo</td>
+
+                <td>@item.ISBN</td>
+
+                <td>@item.AnioPublicacion</td>
+
+                <td>@item.CantidadTotal</td>
+
+                <td>@item.CantidadDisponible</td>
+
+                <td>@item.Autor.Nombre</td>
+
+                <td>@item.Categoria.Nombre</td>
+
+                <td>
+
+                    <a asp-action="Edit"
+                       asp-route-idlibro="@item.IdLibro"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <a asp-action="Details"
+                       asp-route-idlibro="@item.IdLibro"
+                       class="btn btn-info btn-sm">
+                        Detalles
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-idlibro="@item.IdLibro"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

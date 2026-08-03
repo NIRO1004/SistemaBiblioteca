@@ -1,0 +1,49 @@
+@model SistemaBiblioteca.Models.Libro
+
+@{
+    ViewData["Title"] = "Detalles del libro";
+}
+
+<h1>Detalles del libro</h1>
+
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-3">Título</dt>
+    <dd class="col-sm-9">@Model.Titulo</dd>
+
+    <dt class="col-sm-3">ISBN</dt>
+    <dd class="col-sm-9">@Model.ISBN</dd>
+
+    <dt class="col-sm-3">Año de publicación</dt>
+    <dd class="col-sm-9">@Model.AnioPublicacion</dd>
+
+    <dt class="col-sm-3">Cantidad total</dt>
+    <dd class="col-sm-9">@Model.CantidadTotal</dd>
+
+    <dt class="col-sm-3">Cantidad disponible</dt>
+    <dd class="col-sm-9">@Model.CantidadDisponible</dd>
+
+    <dt class="col-sm-3">Autor</dt>
+    <dd class="col-sm-9">@Model.Autor.Nombre</dd>
+
+    <dt class="col-sm-3">Categoría</dt>
+    <dd class="col-sm-9">@Model.Categoria.Nombre</dd>
+
+</dl>
+
+<div>
+
+    <a asp-action="Edit"
+       asp-route-idlibro="@Model.IdLibro"
+       class="btn btn-warning">
+        Editar
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver a la lista
+    </a>
+
+</div>

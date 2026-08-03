@@ -1,0 +1,82 @@
+@model SistemaBiblioteca.Models.Libro
+
+@{
+    ViewData["Title"] = "Editar libro";
+}
+
+<h1>Editar libro</h1>
+
+<h4>Libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="IdLibro" />
+
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ISBN" class="control-label"></label>
+                <input asp-for="ISBN" class="form-control" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AnioPublicacion" class="control-label"></label>
+                <input asp-for="AnioPublicacion" class="form-control" />
+                <span asp-validation-for="AnioPublicacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CantidadTotal" class="control-label"></label>
+                <input asp-for="CantidadTotal" class="form-control" />
+                <span asp-validation-for="CantidadTotal" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CantidadDisponible" class="control-label"></label>
+                <input asp-for="CantidadDisponible" class="form-control" />
+                <span asp-validation-for="CantidadDisponible" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdAutor" class="control-label"></label>
+                <select asp-for="IdAutor" class="form-control" asp-items="ViewBag.IdAutor">
+                    <option value="">-- Seleccione un autor --</option>
+                </select>
+                <span asp-validation-for="IdAutor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdCategoria" class="control-label"></label>
+                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria">
+                    <option value="">-- Seleccione una categoría --</option>
+                </select>
+                <span asp-validation-for="IdCategoria" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
