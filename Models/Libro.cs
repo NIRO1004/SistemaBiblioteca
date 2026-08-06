@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace SistemaBiblioteca.Models
 {
@@ -28,12 +29,14 @@ namespace SistemaBiblioteca.Models
         public int IdAutor { get; set; }
 
         [ForeignKey(nameof(IdAutor))]
+        [ValidateNever]
         public Autor Autor { get; set; } = null!;
 
         [Required]
         public int IdCategoria { get; set; }
 
         [ForeignKey(nameof(IdCategoria))]
+        [ValidateNever]
         public Categoria Categoria { get; set; } = null!;
 
         public ICollection<Prestamo> Prestamos { get; set; } = new List<Prestamo>();
