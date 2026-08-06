@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SistemaBiblioteca.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<h1>Gestión de Préstamos</h1>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-success">
+        Registrar nuevo préstamo
+    </a>
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Usuario</th>
+            <th>Libro</th>
+            <th>Fecha préstamo</th>
+            <th>Fecha devolución</th>
+            <th>Estado</th>
+            <th width="300">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Usuario.Nombre</td>
+                <td>@item.Libro.Titulo</td>
+                <td>@item.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+
+                <td>
+                    @if (item.FechaDevolucion.HasValue)
+                    {
+                        @item.FechaDevolucion.Value.ToString("dd/MM/yyyy")
+                    }
+                    else
+                    {
+                        <span>No devuelto</span>
+                    }
+                </td>
+
+                <td>@item.Estado</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@item.IdPrestamo"
+                       class="btn btn-info btn-sm">
+                        Detalles
+                    </a>
+
+                    <a asp-action="Historial"
+                       asp-route-idUsuario="@item.IdUsuario"
+                       class="btn btn-secondary btn-sm">
+                        Historial
+                    </a>
+
+                    @if (item.Estado != "Devuelto")
+                    {
+                        <form asp-action="Devolver"
+                              asp-route-id="@item.IdPrestamo"
+                              method="post"
+                              style="display:inline;">
+
+                            <button type="submit"
+                                    class="btn btn-warning btn-sm"
+                                    onclick="return confirm('¿Desea registrar la devolución de este libro?');">
+                                Devolver
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

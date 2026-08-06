@@ -1,0 +1,50 @@
+﻿@model SistemaBiblioteca.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalles del usuario";
+}
+
+<h1>Detalles del usuario</h1>
+
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-3">
+        Nombre
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Nombre
+    </dd>
+
+    <dt class="col-sm-3">
+        Correo
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Correo
+    </dd>
+
+    <dt class="col-sm-3">
+        Rol
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Rol
+    </dd>
+
+</dl>
+
+<div>
+    <a asp-action="Edit"
+       asp-route-id="@Model.IdUsuario"
+       class="btn btn-warning">
+        Editar
+    </a>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver a la lista
+    </a>
+</div>

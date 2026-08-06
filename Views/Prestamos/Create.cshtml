@@ -1,0 +1,89 @@
+﻿@model SistemaBiblioteca.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Registrar préstamo";
+}
+
+<h1>Registrar préstamo</h1>
+
+<h4>Préstamo</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdUsuario"
+                       class="control-label">
+                    Usuario
+                </label>
+
+                <select asp-for="IdUsuario"
+                        class="form-control"
+                        asp-items="ViewBag.IdUsuario">
+
+                    <option value="">
+                        -- Seleccione un usuario --
+                    </option>
+                </select>
+
+                <span asp-validation-for="IdUsuario"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdLibro"
+                       class="control-label">
+                    Libro
+                </label>
+
+                <select asp-for="IdLibro"
+                        class="form-control"
+                        asp-items="ViewBag.IdLibro">
+
+                    <option value="">
+                        -- Seleccione un libro --
+                    </option>
+                </select>
+
+                <span asp-validation-for="IdLibro"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <input type="submit"
+                       value="Registrar préstamo"
+                       class="btn btn-primary" />
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index">
+        Volver a la lista
+    </a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

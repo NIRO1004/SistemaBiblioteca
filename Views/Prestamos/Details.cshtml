@@ -1,0 +1,75 @@
+﻿@model SistemaBiblioteca.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Detalles del préstamo";
+}
+
+<h1>Detalles del préstamo</h1>
+
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-3">
+        Usuario
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Usuario.Nombre
+    </dd>
+
+    <dt class="col-sm-3">
+        Correo
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Usuario.Correo
+    </dd>
+
+    <dt class="col-sm-3">
+        Libro
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Libro.Titulo
+    </dd>
+
+    <dt class="col-sm-3">
+        Fecha de préstamo
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.FechaPrestamo.ToString("dd/MM/yyyy")
+    </dd>
+
+    <dt class="col-sm-3">
+        Fecha de devolución
+    </dt>
+
+    <dd class="col-sm-9">
+        @if (Model.FechaDevolucion.HasValue)
+        {
+            @Model.FechaDevolucion.Value.ToString("dd/MM/yyyy")
+        }
+        else
+        {
+            <span>No devuelto</span>
+        }
+    </dd>
+
+    <dt class="col-sm-3">
+        Estado
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Estado
+    </dd>
+
+</dl>
+
+<div>
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver a la lista
+    </a>
+</div>

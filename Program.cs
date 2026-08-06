@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SistemaBiblioteca.Data;
 using SistemaBiblioteca.Services;
@@ -13,30 +14,50 @@ namespace SistemaBiblioteca
             // Configuración de Entity Framework
             builder.Services.AddDbContext<BibliotecaContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("BibliotecaConnection")));
+                    builder.Configuration.GetConnectionString(
+                        "BibliotecaConnection")));
 
-            // Add services to the container.
+            // Servicios MVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<Services.LibroService>();
             builder.Services.AddScoped<Services.AutorService>();
             builder.Services.AddScoped<Services.CategoriaService>();
 
+            // Servicios de la aplicación
+            builder.Services.AddScoped<UsuarioService>();
+            builder.Services.AddScoped<PrestamoService>();
+
+            // Configuración de autenticación por cookies
+            builder.Services
+                .AddAuthentication(
+                    CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Login/Index";
+                    options.AccessDeniedPath = "/Login/AccesoDenegado";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.SlidingExpiration = true;
+                });
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configuración del manejo de errores
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
+            // La autenticación debe ir antes que la autorización
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
