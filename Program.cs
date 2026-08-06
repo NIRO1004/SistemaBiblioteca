@@ -17,6 +17,9 @@ namespace SistemaBiblioteca
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<Services.LibroService>();
+            builder.Services.AddScoped<Services.AutorService>();
+            builder.Services.AddScoped<Services.CategoriaService>();
 
             var app = builder.Build();
 

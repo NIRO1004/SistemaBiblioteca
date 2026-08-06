@@ -1,0 +1,52 @@
+@model SistemaBiblioteca.Models.Autor
+
+@{
+    ViewData["Title"] = "Eliminar autor";
+}
+
+<h1>Eliminar autor</h1>
+
+<div class="alert alert-danger">
+    <strong>¿Está seguro de que desea eliminar este autor?</strong>
+</div>
+
+@if (ViewData["TieneLibros"] is true)
+{
+    <div class="alert alert-warning">
+        Este autor tiene libros asociados. No se puede eliminar hasta que se reasignen o eliminen esos libros.
+    </div>
+}
+
+<hr />
+
+<dl class="row">
+
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Nacionalidad</dt>
+    <dd class="col-sm-9">@Model.Nacionalidad</dd>
+
+    <dt class="col-sm-3">Fecha de nacimiento</dt>
+    <dd class="col-sm-9">@Model.FechaNacimiento?.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Cantidad de libros</dt>
+    <dd class="col-sm-9">@Model.Libros.Count</dd>
+
+</dl>
+
+<form asp-action="Delete">
+
+    <input type="hidden" asp-for="IdAutor" />
+
+    <input type="submit"
+           value="Eliminar"
+           class="btn btn-danger"
+           disabled="@(ViewData["TieneLibros"] is true)" />
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
