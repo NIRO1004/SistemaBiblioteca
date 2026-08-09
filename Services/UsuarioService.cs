@@ -36,7 +36,19 @@ namespace SistemaBiblioteca.Services
         // Actualizar un usuario
         public async Task ActualizarUsuarioAsync(Usuario usuario)
         {
-            _context.Usuarios.Update(usuario);
+            var usuarioExistente = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.IdUsuario == usuario.IdUsuario);
+
+            if (usuarioExistente == null)
+            {
+                return;
+            }
+
+            usuarioExistente.Nombre = usuario.Nombre;
+            usuarioExistente.Correo = usuario.Correo;
+            usuarioExistente.Contrasena = usuario.Contrasena;
+            usuarioExistente.Rol = usuario.Rol;
+
             await _context.SaveChangesAsync();
         }
 

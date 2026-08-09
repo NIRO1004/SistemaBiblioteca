@@ -99,7 +99,7 @@ namespace SistemaBiblioteca.Controllers
         // POST: Libros/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? idlibro, [Bind("IdLibro,Titulo,ISBN,AnioPublicacion,CantidadTotal,CantidadDisponible,IdAutor,IdCategoria")] Libro libro)
+        public async Task<IActionResult> Edit(int? idlibro, [Bind("IdLibro,Titulo,ISBN,Año de Publicacion,CantidadTotal,CantidadDisponible,IdAutor,IdCategoria")] Libro libro)
         {
             if (idlibro != libro.IdLibro)
             {
